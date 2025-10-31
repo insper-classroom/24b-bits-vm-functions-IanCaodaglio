@@ -1,0 +1,26 @@
+function div 2         // local0=quot, local1=rem
+  push constant 0
+  pop local 0          // quot = 0
+  push argument 0
+  pop local 1          // rem = a
+
+label D_LOOP
+  push local 1
+  push argument 1
+  lt                   // rem < b ?
+  if-goto D_END
+
+  push local 1
+  push argument 1
+  sub
+  pop local 1          // rem -= b
+
+  push local 0
+  push constant 1
+  add
+  pop local 0          // quot += 1
+  goto D_LOOP
+
+label D_END
+  push local 0
+  return

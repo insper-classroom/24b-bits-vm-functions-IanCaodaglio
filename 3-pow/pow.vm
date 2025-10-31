@@ -1,0 +1,56 @@
+function pow 3         // local0=res, local1=base, local2=exp
+  push constant 1
+  pop local 0
+  push argument 0
+  pop local 1
+  push argument 1
+  pop local 2
+
+label P_LOOP
+  push local 2
+  push constant 0
+  eq
+  if-goto P_END
+
+  push local 0
+  push local 1
+  call mul 2
+  pop local 0
+
+  push local 2
+  push constant 1
+  sub
+  pop local 2
+  goto P_LOOP
+
+label P_END
+  push local 0
+  return
+
+// --- helper: multiplicação (igual à do exercício 1) ---
+function mul 3         // local0=acc, local1=cnt, local2=val
+  push argument 0
+  pop local 1
+  push argument 1
+  pop local 2
+
+label PM_LOOP
+  push local 1
+  push constant 0
+  eq
+  if-goto PM_END
+
+  push local 0
+  push local 2
+  add
+  pop local 0
+
+  push local 1
+  push constant 1
+  sub
+  pop local 1
+  goto PM_LOOP
+
+label PM_END
+  push local 0
+  return

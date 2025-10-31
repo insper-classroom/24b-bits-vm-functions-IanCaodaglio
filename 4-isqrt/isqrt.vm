@@ -1,3 +1,57 @@
-function isqrt 2
+function isqrt 4       // local0=cur, local1=n, local2=next, local3=sq
+  push constant 0
+  pop local 0
+  push argument 0
+  pop local 1
 
+label I_LOOP
+  push local 0
+  push constant 1
+  add
+  pop local 2           // next = cur + 1
 
+  push local 2
+  push local 2
+  call mul 2
+  pop local 3           // sq = next*next
+
+  push local 3
+  push local 1
+  gt                    // sq > n ?
+  if-goto I_END
+
+  push local 2
+  pop local 0           // cur = next
+  goto I_LOOP
+
+label I_END
+  push local 0
+  return
+
+// --- helper mul ---
+function mul 3          // local0=acc, local1=cnt, local2=val
+  push argument 0
+  pop local 1
+  push argument 1
+  pop local 2
+
+label IM_LOOP
+  push local 1
+  push constant 0
+  eq
+  if-goto IM_END
+
+  push local 0
+  push local 2
+  add
+  pop local 0
+
+  push local 1
+  push constant 1
+  sub
+  pop local 1
+  goto IM_LOOP
+
+label IM_END
+  push local 0
+  return
